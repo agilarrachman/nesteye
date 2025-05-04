@@ -1,0 +1,13 @@
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names: ['Elang Jawa', 'Jalak Bali', 'Kakatua Putih', 'Nuri Hitam']
+
+roboflow:
+  workspace: nathans-project
+  project: endemic-birds-of-indonesia
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/nathans-project/endemic-birds-of-indonesia/dataset/2

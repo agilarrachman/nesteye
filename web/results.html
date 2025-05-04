@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestEye - Detection Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="header-logo">
+                </div>
+                <div class="header-text">
+                    <h1>NestEye</h1>
+                    <p>Advanced Bird Species Detection & Classification</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about-section">Tentang Kami</a></li>
+                    <li><a href="/#detection-section">Deteksi</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="content">
+            <div class="results-container">
+                <h2 class="section-title">Hasil Deteksi</h2>
+                
+                <div class="detection-results">
+                    {% for crop in crops_data %}
+                        <div class="result-card {% if crop.is_highest %}highest-confidence{% endif %}">
+                            <div class="result-image">
+                                <img src="{{ url_for('cropped_file', filename=crop.img) }}" alt="{{ crop.label }}">
+                            </div>
+                            <div class="result-info">
+                                <h3 class="bird-name">{{ crop.label }}</h3>
+                                <p class="scientific-name">{% if crop.label == 'Kakatua Putih' %}(Cacatua alba){% elif crop.label == 'Elang Jawa' %}(Nisaetus bartelsi){% elif crop.label == 'Jalak Bali' %}(Leucopsar rothschildi){% elif crop.label == 'Nuri Hitam' %}(Chalcopsitta atra){% endif %}</p>
+                                <div class="confidence-meter">
+                                    <div class="confidence-label">Keyakinan: {{ crop.confidence }}%</div>
+                                    <div class="confidence-bar-wrapper">
+                                        <div class="confidence-bar" data-width="{{ crop.confidence }}"></div>
+                                    </div>
+                                </div>
+                                
+                                {% if crop.is_highest %}
+                                <div class="conservation-info">
+                                    <div class="info-item">
+                                        <span class="info-label">Status:</span>
+                                        <span class="info-value status-terancam">Terancam</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Populasi:</span>
+                                        <span class="info-value">Tersisa sekitar 43.000-183.000 individu</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Habitat:</span>
+                                        <span class="info-value">Hutan tropis di Sulawesi dan sekitarnya</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Catatan:</span>
+                                        <span class="info-value">Sering diperdagangkan sebagai hewan peliharaan</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="/" class="back-btn">Kembali ke Beranda</a>
+                    <a href="/#detection-section" class="detect-again-btn">Deteksi Lagi</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="footer-logo-img">
+                    <h3>NestEye</h3>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p>Email: info@nesteye.com</p>
+                    <p>Phone: +62 812 3456 7890</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animate confidence bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const bars = document.querySelectorAll('.confidence-bar');
+                bars.forEach(bar => {
+                    bar.style.opacity = '1';
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>

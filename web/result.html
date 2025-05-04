@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestEye - Hasil Deteksi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>NestEye</h1>
+            <p>Advanced Bird Species Detection & Classification</p>
+        </header>
+
+        <div class="content">
+            <div class="result-container">
+                <div class="result-header">
+                    <h2>Hasil Analisis Gambar</h2>
+                </div>
+
+                <div class="original-image">
+                    <h3>Gambar Asli</h3>
+                    <img src="{{ url_for('serve_image_input', filename=original) }}" alt="Original Image">
+                </div>
+
+                <div class="crops-container">
+                    {% for crop in crops %}
+                    <div class="crop-card">
+                        <img src="{{ url_for('serve_cropped_image', filename=crop.img) }}" alt="Cropped Bird" class="crop-image">
+                        <div class="crop-info">
+                            <h3>{{ crop.label }}</h3>
+                            <div class="confidence">Keyakinan: {{ crop.confidence }}%</div>
+                            
+                            {% if crop.label == 'Elang Jawa' and crop.is_highest %}
+                            <div class="species-info">
+                                <p>🦅 <strong>Elang Jawa</strong> (Nisaetus bartelsi)</p>
+                                <p>🔴 <strong>Status:</strong> Terancam Kritis</p>
+                                <p>🌍 <strong>Populasi Tersisa:</strong> Diperkirakan <250 individu dewasa</p>
+                                <p>📍 <strong>Habitat:</strong> Hutan pegunungan di Jawa</p>
+                                <p>📝 <strong>Catatan:</strong> Dilindungi penuh, merupakan satwa nasional (Garuda)</p>
+                            </div>
+                            {% elif crop.label == 'Jalak Bali' and crop.is_highest %}
+                            <div class="species-info">
+                                <p>🐦 <strong>Jalak Bali</strong> (Leucopsar rothschildi)</p>
+                                <p>🔴 <strong>Status:</strong> Kritis</p>
+                                <p>🌍 <strong>Populasi Tersisa:</strong> Kurang dari 100 individu di alam liar</p>
+                                <p>📍 <strong>Habitat:</strong> Hutan kering di Bali Barat</p>
+                                <p>📝 <strong>Catatan:</strong> Merupakan maskot provinsi Bali</p>
+                            </div>
+                            {% elif crop.label == 'Kakatua Putih' and crop.is_highest %}
+                            <div class="species-info">
+                                <p>🦜 <strong>Kakatua Putih</strong> (Cacatua alba)</p>
+                                <p>🔴 <strong>Status:</strong> Terancam</p>
+                                <p>🌍 <strong>Populasi Tersisa:</strong> Diperkirakan 43,000-183,000 individu</p>
+                                <p>📍 <strong>Habitat:</strong> Hutan tropis di Sulawesi dan sekitarnya</p>
+                                <p>📝 <strong>Catatan:</strong> Sering diperdagangkan sebagai hewan peliharaan</p>
+                            </div>
+                            {% elif crop.label == 'Nuri Hitam' and crop.is_highest %}
+                            <div class="species-info">
+                                <p>🦜 <strong>Nuri Hitam</strong> (Chalcopsitta atra)</p>
+                                <p>🟠 <strong>Status:</strong> Rentan</p>
+                                <p>🌍 <strong>Populasi Tersisa:</strong> Diperkirakan menurun</p>
+                                <p>📍 <strong>Habitat:</strong> Hutan dataran rendah di Papua</p>
+                                <p>📝 <strong>Catatan:</strong> Terancam oleh hilangnya habitat dan perburuan</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <a href="/" class="back-btn">Kembali ke Beranda</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+        </footer>
+    </div>
+</body>
+</html>

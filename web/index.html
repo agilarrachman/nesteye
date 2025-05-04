@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestEye - Deteksi Burung Langka Indonesia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="header-logo">
+                </div>
+                <div class="header-text">
+                    <h1>NestEye</h1>
+                    <p>Advanced Bird Species Detection & Classification</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#about-section">Tentang Kami</a></li>
+                    <li><a href="#detection-section">Deteksi</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="content">
+            <div id="detection-section" class="upload-container">
+                <h2 class="section-title">Unggah Gambar</h2>
+                <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
+                    <div class="dropzone" id="drop-area">
+                        <img src="{{ url_for('static', filename='icons/image-icon.png') }}" alt="Image Icon" class="upload-icon">
+                        <h3>Upload Gambar Burung</h3>
+                        <p>Drag & drop gambar di sini atau klik untuk memilih file</p>
+                        <input type="file" name="image" id="image-upload" accept="image/*" required>
+                        <button type="button" class="file-select-btn" style="background-color: #2ecc71; color: white; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; transition: background-color 0.3s;">Pilih File</button>
+                    </div>
+                    <button type="submit" class="detect-btn" style="background: linear-gradient(to right, #2ecc71, #27ae60); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 18px; font-weight: 600; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2); transition: all 0.3s ease;">Deteksi Burung</button>
+                </form>
+            </div>
+
+            <h2 id="about-section" class="section-title">Tentang NestEye</h2>
+            <div class="about-section">
+                <div class="about-text">
+                    <p>NestEye adalah aplikasi berbasis kecerdasan buatan yang dirancang untuk mendeteksi dan mengklasifikasikan spesies burung langka dan dilindungi di Indonesia. Dengan menggunakan teknologi computer vision dan deep learning, NestEye dapat mengidentifikasi burung-burung endemik dengan akurasi tinggi.</p>
+                    <p>Aplikasi ini dikembangkan untuk mendukung upaya konservasi dan penelitian burung-burung langka, terutama spesies yang terancam punah seperti Elang Jawa dan Jalak Bali.</p>
+                </div>
+                <div class="about-image">
+                    <img src="{{ url_for('static', filename='images/leftside_nesteye.png') }}" alt="Burung Endemik Indonesia">
+                </div>
+            </div>
+
+            <div class="features-section">
+                <div class="features-container">
+                    <h2 class="section-title">Kenapa NestEye?</h2>
+                    <div class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/2811/2811806.png" alt="Detection Icon">
+                            </div>
+                            <h3>Deteksi Akurat</h3>
+                            <p>Menggunakan model YOLOv8 dan CNN untuk mendeteksi dan mengklasifikasikan burung dengan akurasi tinggi.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/2971/2971469.png" alt="Conservation Icon">
+                            </div>
+                            <h3>Dukungan Konservasi</h3>
+                            <p>Memberikan data akurat untuk mendukung penelitian dan upaya pelestarian spesies burung langka.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/5726/5726532.png" alt="Learning Icon">
+                            </div>
+                            <h3>Pembelajaran Berkelanjutan</h3>
+                            <p>Model terus belajar dan meningkatkan akurasi dari setiap gambar yang diproses.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/44/44386.png" alt="Accessibility Icon">
+                            </div>
+                            <h3>Kemudahan Aksesibilitas</h3>
+                            <p>Dapat digunakan oleh peneliti, lembaga konservasi, dan pengamat burung secara luas.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/1048/1048966.png" alt="Information Icon">
+                            </div>
+                            <h3>Informasi Konservasi</h3>
+                            <p>Menyediakan data status konservasi dan populasi untuk meningkatkan kesadaran publik.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/128/702/702797.png" alt="Awareness Icon">
+                            </div>
+                            <h3>Peningkatan Kesadaran</h3>
+                            <p>Membantu masyarakat memahami pentingnya perlindungan burung endemik Indonesia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer Section -->
+            <div class="developer-section">
+                <div class="developer-container">
+                    <h2 class="section-title">About Developer</h2>
+                    <p class="developer-intro">Project ini dikembangkan oleh mahasiswa sebagai bagian dari pengaplikasian teknologi AI di bidang konservasi</p>
+                    
+                    <div class="developer-cards">
+                        <div class="developer-card">
+                            <div class="developer-image">
+                                <img src="{{ url_for('static', filename='images/dev1.jpg') }}" alt="Developer 1">
+                            </div>
+                            <h3 class="developer-name">Nurrizkyta Aulia</h3>
+                            <p class="developer-role">System Modelling & FrontEnd Development</p>
+                        </div>
+                        
+                        <div class="developer-card">
+                            <div class="developer-image">
+                                <img src="{{ url_for('static', filename='images/dev2.jpg') }}" alt="Developer 2">
+                            </div>
+                            <h3 class="developer-name">Mochamad Alwan </h3>
+                            <p class="developer-role">UI/UX Designer & FrontEnd Developer</p>
+                        </div>
+                        
+                        <div class="developer-card">
+                            <div class="developer-image">
+                                <img src="{{ url_for('static', filename='images/dev3.jpg') }}" alt="Developer 3">
+                            </div>
+                            <h3 class="developer-name">Muhammad Nabil Al Hapid</h3>
+                            <p class="developer-role">Backend Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="footer-logo-img">
+                    <h3>NestEye</h3>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p>Email: info@nesteye.com</p>
+                    <p>Phone: +62 812 3456 7890</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Display selected file name
+        document.getElementById('image-upload').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+
+        // Drag and drop functionality
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('image-upload');
+        const fileSelectBtn = document.querySelector('.file-select-btn');
+        
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        // Handle dropped files
+        dropArea.addEventListener('drop', handleDrop, false);
+        
+        // Handle click on the dropzone
+        dropArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        // Handle click on the file select button
+        fileSelectBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fileInput.click();
+        });
+        
+        // Handle file selection
+        fileInput.addEventListener('change', handleFiles, false);
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        function highlight() {
+            dropArea.classList.add('highlight');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('highlight');
+        }
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            handleFiles();
+        }
+        
+        function handleFiles() {
+            const files = fileInput.files;
+            if (files.length) {
+                // Update UI to show selected file
+                const fileName = files[0].name;
+                dropArea.querySelector('p').textContent = `Selected file: ${fileName}`;
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.header-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

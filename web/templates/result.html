@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestEye - Hasil Deteksi</title>
+    <!-- Add Montserrat font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Force Montserrat font application -->
+    <style>
+        html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 30px;
+        }
+        
+        .results-container {
+            max-width: 100%;
+            padding: 40px 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="header-logo">
+                </div>
+                <div class="header-text">
+                    <h1>NestEye</h1>
+                    <p>Advanced Bird Species Detection & Classification</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="/#about-section">Tentang Kami</a></li>
+                    <li><a href="/#detection-section">Deteksi</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="results-container">
+            <div class="results-header">
+                <h1 class="section-title">Hasil Deteksi</h1>
+                <p>Berikut adalah hasil deteksi dan klasifikasi spesies burung</p>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-image-container">
+                    <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Detected Bird" class="result-image">
+                </div>
+                <div class="result-details">
+                    <h2 class="result-title">{{ bird_name }}</h2>
+                    <div class="result-info">
+                        <div class="info-item">
+                            <span class="info-label">Nama Latin:</span>
+                            <span class="info-value">{{ scientific_name }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tingkat Keyakinan:</span>
+                            <span class="info-value">{{ confidence }}%</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: {{ confidence }}%;"></div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status Konservasi:</span>
+                            <span class="info-value">
+                                <span class="conservation-status {{ status_class }}">{{ conservation_status }}</span>
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Habitat:</span>
+                            <span class="info-value">{{ habitat }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Populasi:</span>
+                            <span class="info-value">{{ population }}</span>
+                        </div>
+                    </div>
+                    <div class="result-description">
+                        <h3>Deskripsi</h3>
+                        <p>{{ description }}</p>
+                    </div>
+                    <a href="/" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Halaman Utama
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="footer-logo-img">
+                    <h3>NestEye</h3>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <p>Email: info@nesteye.com</p>
+                    <p>Phone: +62 812 3456 7890</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.header-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('/#')) {
+                    // Only prevent default for hash links to the home page
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    window.location.href = '/' + targetId;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

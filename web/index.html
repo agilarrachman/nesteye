@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NestEye - Deteksi Burung Langka Indonesia</title>
+    <!-- Add Montserrat font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Force Montserrat font application -->
+    <style>
+        html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 30px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -26,221 +43,1018 @@
             </nav>
         </header>
 
-        <div class="content">
-            <div id="detection-section" class="upload-container">
-                <h2 class="section-title">Unggah Gambar</h2>
-                <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
-                    <div class="dropzone" id="drop-area">
-                        <img src="{{ url_for('static', filename='icons/image-icon.png') }}" alt="Image Icon" class="upload-icon">
-                        <h3>Upload Gambar Burung</h3>
-                        <p>Drag & drop gambar di sini atau klik untuk memilih file</p>
-                        <input type="file" name="image" id="image-upload" accept="image/*" required>
-                        <button type="button" class="file-select-btn" style="background-color: #2ecc71; color: white; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; transition: background-color 0.3s;">Pilih File</button>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Lindungi Burung Langka Indonesia</h1>
+                <p class="hero-subtitle">Deteksi dan identifikasi spesies burung langka dengan teknologi AI canggih</p>
+                <div class="hero-cta">
+                    <a href="#detection-section" class="cta-button">Mulai Deteksi</a>
+                    <a href="#about-section" class="cta-button secondary">Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="species-count">0</span>
+                        <span class="stat-label">Spesies Terdeteksi</span>
                     </div>
-                    <button type="submit" class="detect-btn" style="background: linear-gradient(to right, #2ecc71, #27ae60); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 18px; font-weight: 600; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2); transition: all 0.3s ease;">Deteksi Burung</button>
-                </form>
-            </div>
-
-            <h2 id="about-section" class="section-title">Tentang NestEye</h2>
-            <div class="about-section">
-                <div class="about-text">
-                    <p>NestEye adalah aplikasi berbasis kecerdasan buatan yang dirancang untuk mendeteksi dan mengklasifikasikan spesies burung langka dan dilindungi di Indonesia. Dengan menggunakan teknologi computer vision dan deep learning, NestEye dapat mengidentifikasi burung-burung endemik dengan akurasi tinggi.</p>
-                    <p>Aplikasi ini dikembangkan untuk mendukung upaya konservasi dan penelitian burung-burung langka, terutama spesies yang terancam punah seperti Elang Jawa dan Jalak Bali.</p>
-                </div>
-                <div class="about-image">
-                    <img src="{{ url_for('static', filename='images/leftside_nesteye.png') }}" alt="Burung Endemik Indonesia">
-                </div>
-            </div>
-
-            <div class="features-section">
-                <div class="features-container">
-                    <h2 class="section-title">Kenapa NestEye?</h2>
-                    <div class="features">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/2811/2811806.png" alt="Detection Icon">
-                            </div>
-                            <h3>Deteksi Akurat</h3>
-                            <p>Menggunakan model YOLOv8 dan CNN untuk mendeteksi dan mengklasifikasikan burung dengan akurasi tinggi.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/2971/2971469.png" alt="Conservation Icon">
-                            </div>
-                            <h3>Dukungan Konservasi</h3>
-                            <p>Memberikan data akurat untuk mendukung penelitian dan upaya pelestarian spesies burung langka.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/5726/5726532.png" alt="Learning Icon">
-                            </div>
-                            <h3>Pembelajaran Berkelanjutan</h3>
-                            <p>Model terus belajar dan meningkatkan akurasi dari setiap gambar yang diproses.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/44/44386.png" alt="Accessibility Icon">
-                            </div>
-                            <h3>Kemudahan Aksesibilitas</h3>
-                            <p>Dapat digunakan oleh peneliti, lembaga konservasi, dan pengamat burung secara luas.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/1048/1048966.png" alt="Information Icon">
-                            </div>
-                            <h3>Informasi Konservasi</h3>
-                            <p>Menyediakan data status konservasi dan populasi untuk meningkatkan kesadaran publik.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/128/702/702797.png" alt="Awareness Icon">
-                            </div>
-                            <h3>Peningkatan Kesadaran</h3>
-                            <p>Membantu masyarakat memahami pentingnya perlindungan burung endemik Indonesia.</p>
-                        </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="accuracy-rate">0</span>
+                        <span class="stat-label">Akurasi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="conservation-count">0</span>
+                        <span class="stat-label">Spesies Dilindungi</span>
                     </div>
                 </div>
             </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/cacatooa.png') }}" alt="Burung Endemik Indonesia" class="main-hero-image">
+                <div class="floating-elements">
+                    <div class="floating-element" id="float-1"></div>
+                    <div class="floating-element" id="float-2"></div>
+                    <div class="floating-element" id="float-3"></div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Developer Section -->
-            <div class="developer-section">
-                <div class="developer-container">
-                    <h2 class="section-title">About Developer</h2>
-                    <p class="developer-intro">Project ini dikembangkan oleh mahasiswa sebagai bagian dari pengaplikasian teknologi AI di bidang konservasi</p>
-                    
-                    <div class="developer-cards">
-                        <div class="developer-card">
-                            <div class="developer-image">
-                                <img src="{{ url_for('static', filename='images/dev1.jpg') }}" alt="Developer 1">
+        <div id="about-section" class="about-section">
+            <h2 class="section-title animated-title">Tentang NestEye</h2>
+            
+            <!-- Original about content with horizontally arranged images -->
+            <div class="about-content">
+                <div class="about-info">
+                    <div class="about-card">
+                        <div class="bird-circles-container">
+                            <div class="category-circle">
+                                <img src="{{ url_for('static', filename='images/bird1.png') }}" alt="Tips & Saran">
                             </div>
-                            <h3 class="developer-name">Nurrizkyta Aulia</h3>
-                            <p class="developer-role">System Modelling & FrontEnd Development</p>
+                            <div class="category-circle">
+                                <img src="{{ url_for('static', filename='images/bird2.png') }}" alt="Perawatan Profesional">
+                            </div>
+                            <div class="category-circle">
+                                <img src="{{ url_for('static', filename='images/bird3.png') }}" alt="Spesies Dilindungi">
+                            </div>
+                            <div class="category-circle">
+                                <img src="{{ url_for('static', filename='images/bird4.png') }}" alt="Galeri Foto">
+                            </div>
                         </div>
-                        
-                        <div class="developer-card">
-                            <div class="developer-image">
-                                <img src="{{ url_for('static', filename='images/dev2.jpg') }}" alt="Developer 2">
-                            </div>
-                            <h3 class="developer-name">Mochamad Alwan </h3>
-                            <p class="developer-role">UI/UX Designer & FrontEnd Developer</p>
-                        </div>
-                        
-                        <div class="developer-card">
-                            <div class="developer-image">
-                                <img src="{{ url_for('static', filename='images/dev3.jpg') }}" alt="Developer 3">
-                            </div>
-                            <h3 class="developer-name">Muhammad Nabil Al Hapid</h3>
-                            <p class="developer-role">Backend Developer</p>
+                        <div class="about-text-enhanced">
+                            <p class="about-paragraph">NestEye adalah aplikasi berbasis kecerdasan buatan yang dirancang untuk mendeteksi dan mengklasifikasikan spesies burung langka dan dilindungi di Indonesia. Dengan menggunakan teknologi computer vision dan deep learning, NestEye dapat mengidentifikasi burung-burung endemik dengan akurasi tinggi.</p>
+                            <p class="about-paragraph highlight-text">Aplikasi ini dikembangkan untuk mendukung upaya konservasi dan penelitian burung-burung langka, terutama spesies yang terancam punah seperti Elang Jawa dan Jalak Bali.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="footer-logo-img">
-                    <h3>NestEye</h3>
+        <!-- Add CSS for the horizontal bird circles -->
+        <style>
+            /* Updated About Section Styling */
+            .about-section {
+                position: relative;
+                margin-top: -100px;
+                padding-top: 30px;
+                z-index: 10;
+            }
+            
+            .about-section .section-title {
+                text-align: center;
+                margin-bottom: 40px;
+                color: #333;
+                position: relative;
+            }
+            
+            .about-section .section-title:after {
+                content: '';
+                display: block;
+                width: 80px;
+                height: 4px;
+                background: #27ae60;
+                margin: 15px auto;
+                border-radius: 2px;
+            }
+            
+            .bird-circles-container {
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                margin-bottom: 30px;
+                gap: 20px;
+            }
+            
+            .category-circle {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 5px solid #f0f0f0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .category-circle:hover {
+                border-color: #27ae60;
+                box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+                transform: translateY(-10px);
+            }
+            
+            .category-circle img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+            
+            .category-circle:hover img {
+                transform: scale(1.1);
+            }
+            
+            .about-content {
+                margin-top: 50px;
+                padding: 30px;
+                background-color: white;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .about-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: white;
+                border-radius: 10px;
+                padding: 30px;
+            }
+            
+            .about-text-enhanced {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .about-paragraph {
+                margin-bottom: 15px;
+                line-height: 1.6;
+                color: #555;
+            }
+            
+            .highlight-text {
+                font-weight: 500;
+                color: #27ae60;
+                padding: 15px;
+                background-color: rgba(39, 174, 96, 0.05);
+                border-left: 4px solid #27ae60;
+                border-radius: 0 5px 5px 0;
+                text-align: left;
+            }
+            
+            @media (max-width: 768px) {
+                .bird-circles-container {
+                    flex-wrap: wrap;
+                }
+                
+                .category-circle {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        </style>
+
+        
+        <!-- After the features section and before the detection section -->
+ <div class="distribution-section">
+    <h2 class="section-title">Persebaran Burung Endemik Indonesia</h2>
+    <p class="distribution-intro">Indonesia memiliki keanekaragaman burung endemik yang tersebar di berbagai pulau. Berikut adalah peta persebaran burung endemik di Indonesia.</p>
+    
+    <div class="distribution-container">
+        <div id="bird-map" class="bird-distribution-map"></div>
+        <div class="distribution-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="https://img.icons8.com/ios-filled/100/bird-script.png" alt="Bird Icon" class="green-icon">
                 </div>
-                <div class="footer-contact">
-                    <h3>Contact</h3>
-                    <p>Email: info@nesteye.com</p>
-                    <p>Phone: +62 812 3456 7890</p>
+                <h3>Sulawesi</h3>
+                <p class="stat-value">169 spesies</p>
+                <p class="stat-percentage">31%</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="https://img.icons8.com/ios-filled/100/bird-script.png" alt="Bird Icon" class="green-icon">
                 </div>
-                <div class="footer-copyright">
-                    <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+                <h3>Maluku</h3>
+                <p class="stat-value">~125 spesies</p>
+                <p class="stat-percentage">23%</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="https://img.icons8.com/ios-filled/100/bird-script.png" alt="Bird Icon" class="green-icon">
+                </div>
+                <h3>Nusa Tenggara</h3>
+                <p class="stat-value">~109 spesies</p>
+                <p class="stat-percentage">20%</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <img src="https://img.icons8.com/ios-filled/100/bird-script.png" alt="Bird Icon" class="green-icon">
+                </div>
+                <h3>Kalimantan</h3>
+                <p class="stat-value">6 spesies</p>
+                <p class="stat-percentage">1%</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add CSS for the distribution section -->
+<style>
+    .distribution-section {
+        padding: 80px 0;
+        background-color: #f9f9f9;
+    }
+    
+    .distribution-intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        color: #555;
+        line-height: 1.6;
+    }
+    
+    .distribution-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .bird-distribution-map {
+        flex: 1;
+        min-width: 300px;
+        height: 500px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .distribution-stats {
+        flex: 1;
+        min-width: 300px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .stat-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(39, 174, 96, 0.15);
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(39, 174, 96, 0.1);
+        border-radius: 50%;
+        padding: 12px;
+    }
+    
+    .stat-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #27ae60;
+        margin-bottom: 5px;
+    }
+    
+    .stat-percentage {
+        font-size: 1rem;
+        color: #666;
+    }
+    
+    @media (max-width: 992px) {
+        .distribution-container {
+            flex-direction: column;
+        }
+        
+        .bird-distribution-map {
+            height: 400px;
+        }
+    }
+</style>
+
+<!-- Add Leaflet.js for the interactive map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+   // Initialize the map when the page loads
+   document.addEventListener('DOMContentLoaded', function() {
+       // Create the map centered on Indonesia
+       const map = L.map('bird-map').setView([-2.5, 118], 5);
+       
+       // Add the base map layer (OpenStreetMap)
+       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+       }).addTo(map);
+       
+       // Define the regions with their data
+       const regions = [
+           {
+               name: 'Sulawesi',
+               center: [0.7893, 121.7740],
+               species: 169,
+               percentage: 31,
+               color: '#27ae60'
+           },
+           {
+               name: 'Maluku',
+               center: [-3.2385, 130.1453],
+               species: 125,
+               percentage: 23,
+               color: '#2ecc71'
+           },
+           {
+               name: 'Nusa Tenggara',
+               center: [-8.6573, 118.6256],
+               species: 109,
+               percentage: 20,
+               color: '#3498db'
+           },
+           {
+               name: 'Kalimantan',
+               center: [0.9619, 114.5548],
+               species: 6,
+               percentage: 1,
+               color: '#9b59b6'
+           }
+       ];
+       
+       // Add markers for each region
+       regions.forEach(region => {
+           // Create a circle marker
+           const marker = L.circleMarker(region.center, {
+               radius: Math.max(10, region.percentage / 2),
+               fillColor: region.color,
+               color: '#fff',
+               weight: 2,
+               opacity: 1,
+               fillOpacity: 0.8
+           }).addTo(map);
+           
+           // Add a popup with information
+           marker.bindPopup(
+               `<strong>${region.name}</strong><br>
+               ${region.species} spesies burung endemik<br>
+               ${region.percentage}% dari total burung endemik Indonesia`
+           );
+           
+           // Show popup on hover
+           marker.on('mouseover', function() {
+               this.openPopup();
+           });
+       });
+       
+       // Add a legend
+       const legend = L.control({position: 'bottomright'});
+       legend.onAdd = function(map) {
+           const div = L.DomUtil.create('div', 'info legend');
+           div.style.backgroundColor = 'white';
+           div.style.padding = '10px';
+           div.style.borderRadius = '5px';
+           div.style.boxShadow = '0 1px 5px rgba(0,0,0,0.2)';
+           
+           div.innerHTML = '<h4 style="margin:0 0 10px 0;color:#333;">Persebaran Burung</h4>';
+           
+           regions.forEach(region => {
+               div.innerHTML += 
+                   `<div style="margin-bottom:5px;">
+                       <i style="background:${region.color};width:10px;height:10px;display:inline-block;border-radius:50%;margin-right:5px;"></i>
+                       ${region.name} (${region.percentage}%)
+                   </div>`;
+           });
+           
+           return div;
+       };
+       legend.addTo(map);
+   });
+</script>
+        
+         <!-- How NestEye Works Section -->
+         <div class="how-it-works-section">
+             <h2 class="section-title">Bagaimana Cara NestEye Bekerja?</h2>
+             <div class="workflow-container">
+                 <div class="workflow-step">
+                     <div class="step-number">1</div>
+                     <h3>Upload Gambar</h3>
+                     <p>Unggah foto burung yang ingin diidentifikasi melalui aplikasi NestEye</p>
+                 </div>
+                 <div class="workflow-connector">
+                     <div class="arrow-circle">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+                             <path d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z" fill="white"/>
+                         </svg>
+                     </div>
+                 </div>
+                 <div class="workflow-step">
+                     <div class="step-number">2</div>
+                     <h3>Pemrosesan Gambar</h3>
+                     <p>Sistem memproses gambar dan menyiapkannya untuk analisis oleh model AI</p>
+                 </div>
+                 <div class="workflow-connector">
+                     <div class="arrow-circle">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+                             <path d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z" fill="white"/>
+                         </svg>
+                     </div>
+                 </div>
+                 <div class="workflow-step">
+                     <div class="step-number">3</div>
+                     <h3>Deteksi & Klasifikasi</h3>
+                     <p>Model AI mendeteksi dan mengklasifikasikan spesies burung dengan akurasi tinggi</p>
+                 </div>
+                 <div class="workflow-connector">
+                     <div class="arrow-circle">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+                             <path d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z" fill="white"/>
+                         </svg>
+                     </div>
+                 </div>
+                 <div class="workflow-step">
+                     <div class="step-number">4</div>
+                     <h3>Hasil & Informasi</h3>
+                     <p>Menampilkan hasil identifikasi beserta informasi detail tentang spesies burung</p>
+                 </div>
+             </div>
+         </div>
+
+         <!-- Update CSS for the workflow section -->
+         <style>
+             .how-it-works-section {
+                 padding: 80px 0;
+                 background-color: #f0f9f4;
+                 margin-top: 50px;
+             }
+             
+             .workflow-container {
+                 display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 flex-wrap: wrap;
+                 max-width: 1200px;
+                 margin: 40px auto 0;
+                 position: relative;
+             }
+             
+             .workflow-step {
+                 flex: 1;
+                 min-width: 200px;
+                 max-width: 250px;
+                 background-color: white;
+                 border-radius: 10px;
+                 padding: 30px 20px;
+                 text-align: center;
+                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                 margin: 10px;
+                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+                 z-index: 2;
+             }
+             
+             .workflow-step:hover {
+                 transform: translateY(-10px);
+                 box-shadow: 0 15px 30px rgba(39, 174, 96, 0.1);
+             }
+             
+             .step-number {
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 width: 60px;
+                 height: 60px;
+                 background-color: #27ae60;
+                 color: white;
+                 font-size: 32px;
+                 font-weight: 700;
+                 border-radius: 50%;
+                 margin: 0 auto 20px;
+             }
+             
+             .workflow-step h3 {
+                 font-size: 1.2rem;
+                 margin-bottom: 15px;
+                 color: #333;
+             }
+             
+             .workflow-step p {
+                 font-size: 0.9rem;
+                 color: #666;
+                 line-height: 1.5;
+             }
+             
+             .workflow-connector {
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 margin: 0 -20px;
+                 z-index: 1;
+             }
+             
+             .arrow-circle {
+                 width: 60px;
+                 height: 60px;
+                 background-color: #27ae60;
+                 border-radius: 50%;
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 padding: 15px;
+                 box-shadow: 0 5px 15px rgba(39, 174, 96, 0.2);
+             }
+             
+             @media (max-width: 992px) {
+                 .workflow-container {
+                     flex-direction: column;
+                 }
+                 
+                 .workflow-step {
+                     max-width: 100%;
+                     margin: 10px 0;
+                 }
+                 
+                 .workflow-connector {
+                     margin: 10px 0;
+                 }
+                 
+                 .arrow-circle {
+                     transform: rotate(90deg);
+                 }
+             }
+         </style>
+
+         <div class="features-section">
+            <div class="features-container">
+                <h2 class="section-title">Kenapa NestEye?</h2>
+                <div class="features">
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/ios-filled/100/bird-script.png" alt="Detection Icon" class="green-icon">
+                        </div>
+                        <h3>Deteksi Akurat</h3>
+                        <p>Menggunakan model YOLOv8 dan CNN untuk mendeteksi dan mengklasifikasikan burung dengan akurasi tinggi.</p>
+                    </div>
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/16134/16134529.png" alt="Conservation Icon" class="green-icon">
+                        </div>
+                        <h3>Dukungan Konservasi</h3>
+                        <p>Memberikan data akurat untuk mendukung penelitian dan upaya pelestarian spesies burung langka.</p>
+                    </div>
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://cdn-icons-png.freepik.com/512/6828/6828631.png" alt="Learning Icon" class="green-icon">
+                        </div>
+                        <h3>Pembelajaran Berkelanjutan</h3>
+                        <p>Model terus belajar dan meningkatkan akurasi dari setiap gambar yang diproses.</p>
+                    </div>
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2552/2552108.png" alt="Accessibility Icon" class="green-icon">
+                        </div>
+                        <h3>Kemudahan Aksesibilitas</h3>
+                        <p>Dapat digunakan oleh peneliti, lembaga konservasi, dan pengamat burung secara luas.</p>
+                    </div>
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://img.icons8.com/color/96/info--v1.png" alt="Information Icon" class="green-icon">
+                        </div>
+                        <h3>Informasi Konservasi</h3>
+                        <p>Menyediakan data status konservasi dan populasi untuk meningkatkan kesadaran publik.</p>
+                    </div>
+        
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4064/4064205.png" alt="Awareness Icon" class="green-icon">
+                        </div>
+                        <h3>Peningkatan Kesadaran</h3>
+                        <p>Membantu masyarakat memahami pentingnya perlindungan burung endemik Indonesia.</p>
+                    </div>
+        
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+        
 
-    <script>
-        // Display selected file name
-        document.getElementById('image-upload').addEventListener('change', function() {
-            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
-            document.getElementById('file-name').textContent = fileName;
-        });
+                     <div id="detection-section" class="upload-container">
+                         <h2 class="section-title">Unggah Gambar</h2>
+                         <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
+                             <div class="dropzone" id="drop-area">
+                                 <img src="https://cdn-icons-png.flaticon.com/512/4725/4725998.png" alt="Image Icon" class="upload-icon">
+                                 <h3>Upload Gambar Burung</h3>
+                                 <p>Drag & drop gambar di sini atau klik untuk memilih file</p>
+                                 <input type="file" name="image" id="image-upload" accept="image/*" required>
+                                 <button type="button" class="file-select-btn">Pilih File</button>
+                                 <p id="file-name"></p>
+                             </div>
+                             <button type="submit" class="detect-btn">Deteksi Burung</button>
+                         </form>
+                     </div>
 
-        // Drag and drop functionality
-        const dropArea = document.getElementById('drop-area');
-        const fileInput = document.getElementById('image-upload');
-        const fileSelectBtn = document.querySelector('.file-select-btn');
-        
-        // Prevent default drag behaviors
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false);
-        });
-        
-        // Highlight drop area when item is dragged over it
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
-        });
-        
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
-        });
-        
-        // Handle dropped files
-        dropArea.addEventListener('drop', handleDrop, false);
-        
-        // Handle click on the dropzone
-        dropArea.addEventListener('click', function() {
-            fileInput.click();
-        });
-        
-        // Handle click on the file select button
-        fileSelectBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            fileInput.click();
-        });
-        
-        // Handle file selection
-        fileInput.addEventListener('change', handleFiles, false);
-        
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        
-        function highlight() {
-            dropArea.classList.add('highlight');
-        }
-        
-        function unhighlight() {
-            dropArea.classList.remove('highlight');
-        }
-        
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            fileInput.files = files;
-            handleFiles();
-        }
-        
-        function handleFiles() {
-            const files = fileInput.files;
-            if (files.length) {
-                // Update UI to show selected file
-                const fileName = files[0].name;
-                dropArea.querySelector('p').textContent = `Selected file: ${fileName}`;
-            }
-        }
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('.header-nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+                     <!-- Developer Section -->
+                     <div class="developer-section">
+                         <div class="developer-container">
+                             <h2 class="section-title">Pengembang NestEye</h2>
+                             <p class="developer-intro">Project ini dikembangkan oleh Mahasiswa Semester 6 TPL Sekolah Vokasi IPB sebagai bagian dari pengaplikasian Computer Vision untuk Konservasi</p>
+                             
+                             <div class="developer-cards">
+                                 <div class="developer-card">
+                                     <div class="developer-image">
+                                         <img src="{{ url_for('static', filename='images/dev1.jpg') }}" alt="Nurrizkyta Aulia">
+                                     </div>
+                                     <div class="developer-info">
+                                         <h3 class="developer-name">Nurrizkyta Aulia</h3>
+                                         <p class="developer-role">System Modeller</p>
+                                     </div>
+                                 </div>
+                     
+                                 <div class="developer-card">
+                                     <div class="developer-image">
+                                         <img src="{{ url_for('static', filename='images/dev2.jpg') }}" alt="Nurrizkyta Aulia">
+                                     </div>
+                                     <div class="developer-info">
+                                         <h3 class="developer-name">Moch Alwan</h3>
+                                         <p class="developer-role">FrontEnd Developer</p>
+                                     </div>
+                                 </div>
+                     
+                                 <div class="developer-card">
+                                     <div class="developer-image">
+                                         <img src="{{ url_for('static', filename='images/dev3.jpg') }}" alt="Nurrizkyta Aulia">
+                                     </div>
+                                     <div class="developer-info">
+                                         <h3 class="developer-name">Nabil Malik</h3>
+                                         <p class="developer-role">BackEnd Developer</p>
+                                     </div>
+                                 </div>
+                                 
+                                
+                             </div>
+                         </div>
+                     </div>
+
+                     <footer class="footer">
+                         <div class="footer-content">
+                             <div class="footer-logo">
+                                 <img src="{{ url_for('static', filename='images/nesteye.png') }}" alt="NestEye Logo" class="footer-logo-img">
+                                 <h3>NestEye</h3>
+                             </div>
+                             <div class="footer-contact">
+                                 <h3>Contact</h3>
+                                 <p>Email: info@nesteye.com</p>
+                                 <p>Phone: +62 812 3456 7890</p>
+                             </div>
+                             <div class="footer-copyright">
+                                 <p>&copy; 2024 NestEye - Aplikasi Deteksi Burung Langka Indonesia</p>
+                             </div>
+                         </div>
+                     </footer>
+                     
+                     <!-- Add footer styling with light green background -->
+                     <style>
+                         .footer {
+                             background-color: #e8f5e9; /* Light green background */
+                             padding: 40px 0;
+                             margin-top: 60px;
+                             border-top: 4px solid #27ae60;
+                         }
+                         
+                         .footer-content {
+                             display: flex;
+                             flex-wrap: wrap;
+                             justify-content: space-between;
+                             align-items: flex-start;
+                             max-width: 1200px;
+                             margin: 0 auto;
+                             padding: 0 20px;
+                         }
+                         
+                         .footer-logo {
+                             display: flex;
+                             align-items: center;
+                             margin-bottom: 20px;
+                         }
+                         
+                         .footer-logo-img {
+                             width: 50px;
+                             height: 50px;
+                             margin-right: 15px;
+                         }
+                         
+                         .footer-logo h3 {
+                             font-size: 1.5rem;
+                             color: #27ae60;
+                             margin: 0;
+                         }
+                         
+                         .footer-contact h3 {
+                             font-size: 1.2rem;
+                             color: #333;
+                             margin-bottom: 15px;
+                         }
+                         
+                         .footer-contact p {
+                             margin: 5px 0;
+                             color: #555;
+                         }
+                         
+                         .footer-copyright {
+                             width: 100%;
+                             text-align: center;
+                             margin-top: 30px;
+                             padding-top: 20px;
+                             border-top: 1px solid rgba(39, 174, 96, 0.2);
+                             color: #666;
+                         }
+                         
+                         @media (max-width: 768px) {
+                             .footer-content {
+                                 flex-direction: column;
+                                 align-items: center;
+                                 text-align: center;
+                             }
+                             
+                             .footer-contact {
+                                 margin: 20px 0;
+                             }
+                         }
+                     </style>
+                 </div>
+             </div>
+         </div>
+     
+         <script>
+             // Display selected file name
+             document.getElementById('image-upload').addEventListener('change', function() {
+                 const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+                 document.getElementById('file-name').textContent = fileName;
+             });
+     
+             // Drag and drop functionality
+             const dropArea = document.getElementById('drop-area');
+             const fileInput = document.getElementById('image-upload');
+             const fileSelectBtn = document.querySelector('.file-select-btn');
+             
+             // Prevent default drag behaviors
+             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                 dropArea.addEventListener(eventName, preventDefaults, false);
+                 document.body.addEventListener(eventName, preventDefaults, false);
+             });
+             
+             // Highlight drop area when item is dragged over it
+             ['dragenter', 'dragover'].forEach(eventName => {
+                 dropArea.addEventListener(eventName, highlight, false);
+             });
+             
+             ['dragleave', 'drop'].forEach(eventName => {
+                 dropArea.addEventListener(eventName, unhighlight, false);
+             });
+             
+             // Handle dropped files
+             dropArea.addEventListener('drop', handleDrop, false);
+             
+             // Handle click on the dropzone
+             dropArea.addEventListener('click', function() {
+                 fileInput.click();
+             });
+             
+             // Handle click on the file select button
+             fileSelectBtn.addEventListener('click', function(e) {
+                 e.stopPropagation();
+                 fileInput.click();
+             });
+             
+             // Handle file selection
+             fileInput.addEventListener('change', handleFiles, false);
+             
+             function preventDefaults(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+             }
+             
+             function highlight() {
+                 dropArea.classList.add('highlight');
+             }
+             
+             function unhighlight() {
+                 dropArea.classList.remove('highlight');
+             }
+             
+             function handleDrop(e) {
+                 const dt = e.dataTransfer;
+                 const files = dt.files;
+                 fileInput.files = files;
+                 handleFiles();
+             }
+             
+             function handleFiles() {
+                 const files = fileInput.files;
+                 if (files.length) {
+                     // Update UI to show selected file
+                     const fileName = files[0].name;
+                     dropArea.querySelector('p').textContent = `Selected file: ${fileName}`;
+                 }
+             }
+             
+             // Smooth scrolling for navigation links
+             document.querySelectorAll('.header-nav a').forEach(anchor => {
+                 anchor.addEventListener('click', function(e) {
+                     e.preventDefault();
+                     const targetId = this.getAttribute('href');
+                     const targetElement = document.querySelector(targetId);
+                     
+                     window.scrollTo({
+                         top: targetElement.offsetTop - 100,
+                         behavior: 'smooth'
+                     });
+                 });
+             });
+             
+             // Counter animation for hero stats
+             function animateCounter(elementId, finalValue, duration) {
+                 const element = document.getElementById(elementId);
+                 let startTime = null;
+                 const startValue = 0;
+                 
+                 function step(timestamp) {
+                     if (!startTime) startTime = timestamp;
+                     const progress = Math.min((timestamp - startTime) / duration, 1);
+                     const currentValue = Math.floor(progress * (finalValue - startValue) + startValue);
+                     
+                     if (elementId === 'accuracy-rate') {
+                         element.textContent = currentValue + '%';
+                     } else {
+                         element.textContent = currentValue;
+                     }
+                     
+                     if (progress < 1) {
+                         window.requestAnimationFrame(step);
+                     }
+                 }
+                 
+                 window.requestAnimationFrame(step);
+             }
+             
+             // Start counter animations when page loads
+             window.addEventListener('load', function() {
+                 // Delay to ensure elements are visible
+                 setTimeout(() => {
+                     animateCounter('species-count', 4, 2000);
+                     animateCounter('accuracy-rate', 95, 2000);
+                     animateCounter('conservation-count', 562, 2000);
+                 }, 500);
+             });
+             
+             // Parallax effect for floating elements
+             document.addEventListener('mousemove', function(e) {
+                 const mouseX = e.clientX / window.innerWidth;
+                 const mouseY = e.clientY / window.innerHeight;
+                 
+                 const elements = document.querySelectorAll('.floating-element');
+                 elements.forEach((element, index) => {
+                     const depth = (index + 1) * 20;
+                     const moveX = (mouseX - 0.5) * depth;
+                     const moveY = (mouseY - 0.5) * depth;
+                     
+                     element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                 });
+             });
+     
+             // Bird Carousel Functionality
+             document.addEventListener('DOMContentLoaded', function() {
+                 const track = document.querySelector('.carousel-track');
+                 const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+                 const nextButton = document.querySelector('.carousel-button.next');
+                 const prevButton = document.querySelector('.carousel-button.prev');
+                 const dots = Array.from(document.querySelectorAll('.dot'));
+                 
+                 if (!track || slides.length === 0) return;
+                 
+                 let currentIndex = 0;
+                 
+                 // Move to specified slide
+                 function moveToSlide(index) {
+                     if (index < 0) index = slides.length - 1;
+                     if (index >= slides.length) index = 0;
+                     
+                     currentIndex = index;
+                     const slideWidth = slides[0].getBoundingClientRect().width;
+                     track.style.transform = 'translateX(-' + (slideWidth * index) + 'px)';
+                     
+                     // Update active dot
+                     dots.forEach((dot, dotIndex) => {
+                         dot.classList.toggle('active', dotIndex === index);
+                     });
+                 }
+                 
+                 // Next button click
+                 if (nextButton) {
+                     nextButton.addEventListener('click', () => {
+                         moveToSlide(currentIndex + 1);
+                     });
+                 }
+                 
+                 // Previous button click
+                 if (prevButton) {
+                     prevButton.addEventListener('click', () => {
+                         moveToSlide(currentIndex - 1);
+                     });
+                 }
+                 
+                 // Dot click
+                 dots.forEach(dot => {
+                     dot.addEventListener('click', () => {
+                         const slideIndex = parseInt(dot.getAttribute('data-index'));
+                         moveToSlide(slideIndex);
+                     });
+                 });
+                 
+                 // Initialize carousel
+                 window.addEventListener('resize', () => {
+                     moveToSlide(currentIndex); // Recalculate positions on resize
+                 });
+                 
+                 // Auto slide every 5 seconds
+                 let autoSlideInterval = setInterval(() => {
+                     moveToSlide(currentIndex + 1);
+                 }, 5000);
+                 
+                 // Pause auto-slide when interacting with carousel
+                 [nextButton, prevButton, ...dots].forEach(element => {
+                     if (element) {
+                         element.addEventListener('mouseenter', () => {
+                             clearInterval(autoSlideInterval);
+                         });
+                         
+                         element.addEventListener('mouseleave', () => {
+                             autoSlideInterval = setInterval(() => {
+                                 moveToSlide(currentIndex + 1);
+                             }, 5000);
+                         });
+                     }
+                 });
+                 
+                 // Initial setup
+                 moveToSlide(0);
+             });
+         </script>
+     </body>
+     </html>
+
+ <!-- Add CSS for the green icons -->
+ <style>
+     .feature-icon {
+         width: 80px;
+         height: 80px;
+         margin: 0 auto 20px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background-color: rgba(39, 174, 96, 0.1);
+         border-radius: 50%;
+         padding: 15px;
+         transition: all 0.3s ease;
+     }
+     
+     .feature-card:hover .feature-icon {
+         background-color: rgba(39, 174, 96, 0.2);
+         transform: translateY(-5px);
+     }
+     
+     .green-icon {
+         width: 100%;
+         height: 100%;
+         object-fit: contain;
+         filter: invert(57%) sepia(75%) saturate(385%) hue-rotate(93deg) brightness(87%) contrast(91%);
+     }
+ </style>
+
+ 
